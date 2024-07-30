@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/index.css">
+    <script src="../static/index.js" defer></script>
+    <title>發表圖文內容</title>
+</head>
+<body>
+    <h3>發表一個圖文內容</h3>
+    <form onsubmit="handleSubmit(event)" enctype="multipart/form-data">
+        <div>
+            <label for="content">文字內容</label>
+            <input type="text" id="content" name="content" required>
+        </div>
+        <div>
+            <label for="image">圖片檔案</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+        <button type="submit">送出</button>
+    </form>
+    <hr>
+    <div class="message_container"></div>
+</body>
+</html>
