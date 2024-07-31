@@ -1,24 +1,24 @@
-from pymysql.pool import Pool
+from mysql.connector import pooling
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-#Initialize RDS connection
-rds_host = os.getenv('RDS_HOST')
-rds_user = os.getenv('RDS_USER')
-rds_password = os.getenv('RDS_PASSWORD')
-rds_db = os.getenv('RDS_DB')
 
-pool = Pool(
-    host = rds_host,
-    user = rds_user,
-    password = rds_password,
-    db = rds_db,
-    autocommit = True,
-    max_connections = 10
-    )
+# 初始化 RDS 连接配置
+db_config = {
+    "host": os.getenv('RDS_HOST'),
+    "port": 3306,  # 默认 MySQL 端口
+    "user": os.getenv('RDS_USER'),
+    "password": os.getenv('RDS_PASSWORD'),
+    "database": os.getenv('RDS_DB')
+}
 
-pool.init()
+# 创建连接池
+connection_pool = pooling.MySQLConnectionPool(
+    pool_name="mypool",
+    pool_size=10,
+    **db_config
+)
 
 def get_connection():
-    return pool.get_conn()
+    return connection_pool.get_connection()
