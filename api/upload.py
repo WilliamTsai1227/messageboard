@@ -1,9 +1,9 @@
-from fastapi import FastAPI ,UploadFile,Form,File
+from fastapi import *
 from fastapi.responses import JSONResponse
 from model.rds_database import save_message 
 import boto3
 
-upload = FastAPI()
+upload = APIRouter()
 
 
 
