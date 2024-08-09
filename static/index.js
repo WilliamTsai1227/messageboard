@@ -4,7 +4,7 @@ async function handleSubmit(event) {
     const formData = new FormData(event.target);  // Get form data
     
     try {
-        const response = await fetch('http://44.226.179.112/api/upload/', {
+        const response = await fetch('http://44.226.179.112:8000/api/upload/', {
             method: 'POST',
             body: formData  
         });
