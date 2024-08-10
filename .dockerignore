@@ -18,12 +18,12 @@ __pycache__
 *.tmp
 
 
-# 忽略 IDE/编辑器配置目录
+# 忽略 IDE/编辑器配置目錄
 .vscode
 *.sublime-project
 *.sublime-workspace
 
-# 忽略 Docker構建和部署文件
+# 忽略 Docker 構建和部署文件
 docker-compose.yml
 Dockerfile
 .dockerignore
