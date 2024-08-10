@@ -1,6 +1,6 @@
 from fastapi import *
 from fastapi.responses import JSONResponse
-from model.rds_database import save_message 
+from model.database import save_message 
 import boto3
 
 upload = APIRouter()

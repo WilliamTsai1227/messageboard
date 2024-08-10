@@ -1,8 +1,9 @@
 from model.connection_pool import get_connection
 
+#this model is used to operate AWS RDS database
 
-# save data to MySQL database
-def save_message(content: str, file_name: str):
+# save data to AWS RDS MySQL database
+def save_data(content: str, file_name: str):
     connection = None
     cursor = None
     try:
@@ -34,4 +35,30 @@ def save_message(content: str, file_name: str):
             cursor.close()
         if connection:
             connection.close()
-            
+
+#get all message data from AWS RDS MySQL database
+def get_data():
+    connection = None
+    cursor = None
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.excute(
+            "SELECT * FROM message"
+        )
+        result = cursor.fetchall()
+    except Exception as e:
+        raise ValueError(f"Error while searching message data: {e}") 
+    try:
+        formatted_result = []
+        for row in result:
+            formatted_row = {
+                "id":row[0],
+                "content":row[1],
+                "image_url":row[2],
+                "create_at":row[3]
+            }
+            formatted_result.append(formatted_row)
+        return formatted_result
+    except Exception as e:
+        raise ValueError(f"Error while formatted message data: {e}") 
