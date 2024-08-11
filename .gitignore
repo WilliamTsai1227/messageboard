@@ -10,10 +10,6 @@ __pycache__/
 # 環境變量文件
 .env
 
-# Docker
-*.dockerignore
-Dockerfile
-docker-compose.yml
 
 # VSCode 和其他 IDE 文件
 .vscode/
@@ -34,14 +30,6 @@ env/
 build/
 dist/
 *.egg-info/
-
-# PyCharm 臨時文件
-*.iml
-*.pyc
-*.pyo
-
-# AWS 憑證文件
-.aws/
 
 # mysql command
 mysql_command.sql
