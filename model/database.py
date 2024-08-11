@@ -1,4 +1,5 @@
 from model.connection_pool import get_connection
+from datetime import datetime
 
 #this model is used to operate AWS RDS database
 
@@ -20,7 +21,7 @@ def save_data(content: str, file_name: str):
                 "success": True,
                 "id": cursor.lastrowid,  # Get the ID of the last inserted record
                 "content": content,
-                "img_url": image_url
+                "image_url": image_url
             }
         else:
             response = {
@@ -43,7 +44,7 @@ def get_data():
     try:
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.excute(
+        cursor.execute(
             "SELECT * FROM message"
         )
         result = cursor.fetchall()
@@ -56,9 +57,14 @@ def get_data():
                 "id":row[0],
                 "content":row[1],
                 "image_url":row[2],
-                "create_at":row[3]
+                "create_at":row[3].strftime('%Y-%m-%d %H-%M-%S')# Convert datetime to string 
             }
             formatted_result.append(formatted_row)
         return formatted_result
     except Exception as e:
-        raise ValueError(f"Error while formatted message data: {e}") 
+        raise ValueError(f"Error while formatted message data: {e}")
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close() 

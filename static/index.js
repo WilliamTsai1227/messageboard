@@ -4,7 +4,7 @@ async function handleSubmit(event) {
     const formData = new FormData(event.target);  // Get form data
     
     try {
-        const response = await fetch('http://44.226.179.112/api/upload/', {
+        const response = await fetch('http://messageboards.life/api/upload/', {
             method: 'POST',
             body: formData  
         });
@@ -13,14 +13,17 @@ async function handleSubmit(event) {
 
         if (response.status === 200) {
             const message_container = document.querySelector(".message_container")
+            const message_div = document.createElement('div')
             const textDiv = document.createElement('div');
             const img = document.createElement('img');
             const hr = document.createElement('hr');
             textDiv.textContent = result.content;  // Add text content to div
-            img.src = result.img_url;  // Add the source url of the image
-            message_container.appendChild(contentDiv);
-            message_container.appendChild(img);
-            message_container.appendChild(hr);
+            img.src = result.image_url;  // Add the source url of the image
+            message_div.appendChild(textDiv)
+            message_div.appendChild(img)
+            message_div.appendChild(hr)
+            // Prepend the new elements to the message container
+            message_container.prepend(message_div)
         } else if (response.status === 500) {
             alert('上傳失敗');
         }
@@ -32,24 +35,27 @@ async function handleSubmit(event) {
 
 async function getData(){
     try{
-        const response = await fetch("http://44.226.179.122/api/getdata/",{
+        const response = await fetch("http://messageboards.life/api/getdata/",{
             method:'GET'
         });
         const result = await response.json();
 
         if(response.status == 200 && result.success === true){
             let allMessage = result.data;
-            if ( allMessage.lengh !== 0 ){   //data is not empty
+            if ( allMessage.length !== 0 ){   //data is not empty
                 for(let i of allMessage){
                     const message_container = document.querySelector(".message_container")
+                    const message_div = document.createElement('div')
                     const textDiv = document.createElement('div');
                     const img = document.createElement('img');
                     const hr = document.createElement('hr');
                     textDiv.textContent = i.content;
-                    img.src = i.img_url
-                    message_container.appendChild(textDiv);
-                    message_container.appendChild(img);
-                    message_container.appendChild(hr);
+                    img.src = i.image_url
+                    message_div.appendChild(textDiv)
+                    message_div.appendChild(img)
+                    message_div.appendChild(hr)
+                    // Prepend the new elements to the message container
+                    message_container.prepend(message_div)
                 }
             }
         }else if(response.status == 500){
@@ -61,3 +67,9 @@ async function getData(){
         console.error('Error:', error);
     }
 }
+
+
+function excute(){
+    getData();
+}
+excute();
