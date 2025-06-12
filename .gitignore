@@ -31,5 +31,4 @@ build/
 dist/
 *.egg-info/
 
-# mysql command
-mysql_command.sql
+
